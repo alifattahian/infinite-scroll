@@ -10,3 +10,7 @@ npm install
 ng serve
 # or use npm run ng serve
 ```
+In order to connect to JSON server run below commad:
+```
+npm run api
+```

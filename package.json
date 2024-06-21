@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "api": "json-server api/db.json ",
     "serve:ssr:infinite-scroll": "node dist/infinite-scroll/server/server.mjs"
   },
   "private": true,
@@ -22,7 +23,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.4",
     "express": "^4.18.2",
-    "json-server": "^1.0.0-beta.1",
+   
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -35,6 +36,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "jasmine-core": "~5.1.0",
+    "json-server": "^1.0.0-beta.1",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",

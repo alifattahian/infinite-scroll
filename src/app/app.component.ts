@@ -1,14 +1,18 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DynamicScrollComponent } from './dynamic-scroll/dynamic-scroll.component';
-import { delay, timeout } from 'rxjs';
+import { delay, firstValueFrom, timeout } from 'rxjs';
 import { Post } from './model/post';
 import { __asyncGenerator } from 'tslib';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { error } from 'console';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, DynamicScrollComponent],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -17,6 +21,10 @@ export class AppComponent implements AfterViewInit {
   title = 'infinite-scroll';
 
   @ViewChild("scroller") scroller: DynamicScrollComponent | undefined;
+
+  constructor(private postService: PostService) {
+
+  }
 
 
   ngAfterViewInit() {
@@ -49,15 +57,18 @@ export class AppComponent implements AfterViewInit {
   }
   async *getList(): AsyncGenerator<Post> {
 
-    delay(1000);
-    for (let i = 0; i < 1000; i++) {
-      let post: Post = {
-        id: i,
-        description: 'description' + i
-      }
-      yield post;
+    let pageNumber = 1;
+    let posts: Post[] | undefined = [];
+    do {
 
-    }
+      posts = await firstValueFrom(this.postService.getPost(pageNumber));
+      pageNumber++;
+      if (posts && posts.length) {
+        for (let post of posts) {
+          yield post;
+        }
+      }
+    } while (posts && posts.length)
 
 
   }
