@@ -1,0 +1,8 @@
+<div #scrollArea class="scroll-area">
+    @for (item of list; track $index) {
+    <div #item>
+        <strong>{{item.id}}</strong>
+        <span>{{item.description}}</span>
+    </div>
+    }
+</div>
